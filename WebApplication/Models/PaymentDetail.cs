@@ -12,16 +12,16 @@ namespace WebApplication.Models
         [Key]
         public int PMId { get; set; }
         [Required]
-        [Column(TypeName = "nvachar(100)")]
+        [Column(TypeName = "nvarchar(100)")]
         public string CardOwnerName { get; set; }
         [Required]
-        [Column(TypeName = "vachar(16)")]
+        [Column(TypeName = "varchar(16)")]
         public string CardNumber { get; set; }
         [Required]
         [Column(TypeName = "varchar(5)")]
         public string ExpirationDate { get; set; }
         [Required]
-        [Column(TypeName = "vachar(3)")]
+        [Column(TypeName = "varchar(3)")]
         public string CVV { get; set; }
     }
 }
