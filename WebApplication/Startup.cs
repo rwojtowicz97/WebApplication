@@ -11,6 +11,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using WebApplication.Models;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json.Serialization;
 
 namespace WebApplication
 {
@@ -26,10 +27,15 @@ namespace WebApplication
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson(options =>
+        {
+            options.SerializerSettings.ContractResolver = new DefaultContractResolver();
+        });
 
             services.AddDbContext<PaymentDetailContext>(options => 
             options.UseSqlServer(Configuration.GetConnectionString("DevConnection")));
+
+            services.AddCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,6 +54,11 @@ namespace WebApplication
             {
                 endpoints.MapControllers();
             });
+
+            app.UseCors(options =>
+            options.AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader());
         }
     }
 }
